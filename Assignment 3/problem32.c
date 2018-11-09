@@ -1,0 +1,166 @@
+/*
+JTSK-320112
+a3 p2.c
+Fatine Tazi
+f.tazi@jacobs-university.de
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//Creating the list structure
+struct list{
+	int info;
+	struct list* next;
+};
+
+//Printing function of a list
+void print_list (struct list* my_list){
+	struct list* p;
+	for (p = my_list; p; p = p->next) {
+		printf ("%d ", p->info);
+	}
+	printf("\n");
+}
+
+//Inserting new element in the front funcion
+struct list* push_front (struct list* my_list, int value){
+	struct list* newel;
+	newel = (struct list*) malloc(sizeof(struct list));
+	if (newel == NULL){
+		printf ("Error allocating memory \n");
+		return my_list;
+	}
+	newel->info = value;
+	newel->next = my_list;
+	return newel;
+}
+
+//Inserting new element at the end funcion
+struct list* push_back (struct list* my_list, int value){
+	struct list *cursor, *newel;
+	cursor = my_list;
+	newel = (struct list*) malloc(sizeof(struct list));
+	if (newel == NULL){
+		printf("Error allocating memory \n");
+		return my_list;
+	}
+	newel->info = value ;
+	newel->next = NULL ;
+	if (my_list == NULL ){
+		return newel;
+	}
+	while (cursor->next != NULL){
+		cursor = cursor->next;
+	}
+	cursor->next = newel;
+	return my_list;
+}
+
+//Freeing a list function
+void dispose_list (struct list* my_list){
+	struct list* nextelem;
+	while (my_list != NULL){
+		nextelem = my_list->next;
+ 		free(my_list);
+		my_list = nextelem;
+	}
+}
+
+//Removing first element function 
+void remove_first(struct list** my_list){
+	struct list* temp = * my_list;
+	if (temp == NULL)
+	{
+		return;
+	} else {
+		*my_list = temp -> next;
+		free(temp);
+	}
+}
+
+//Adding an element to a specified position
+struct list* push_x (struct list* my_list, int position, int value){
+	struct list* new;
+	new = (struct list*) malloc(sizeof(struct list));
+	new->info = value;
+	new->next = NULL;
+	if (position == 0) {
+		return push_front(my_list, value);
+	} else if(position>0) {
+		int i = 1; //position
+		struct list* current = my_list;
+		int j = 0; //checking
+		for (current = my_list; current; current = current->next) {
+			if (i == position)
+			 {
+			 	new->next = current->next;
+			 	current->next=new;
+			 	j = 1;
+			 	return my_list;
+			 }
+			 i++;
+		}
+
+		if (j==0) {
+			printf("Invalid position!\n");
+			return my_list;
+		}
+	} else {
+		printf("Invalid position!\n");
+		return my_list;
+	}
+	return my_list;
+}
+
+struct list* reverse (struct list* my_list){
+	struct list *current = my_list, *next = NULL, *prev = NULL;
+	while(current){
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	return prev;
+}
+
+int main(){
+
+	struct list* my_list = NULL;
+	char i = 'i';
+	int info, position;
+
+	do {
+		scanf("%c", &i);
+		switch(i){
+			case 'a':
+				scanf("%d", &info);
+				getchar();
+				my_list = push_back(my_list, info);
+				break;
+			case 'b':
+				scanf("%d", &info);
+				getchar();
+				my_list = push_front(my_list, info);
+				break;
+			case 'r':
+				remove_first(&my_list);
+				break;
+			case 'p':
+				print_list(my_list);
+				break;
+			case 'q':
+				dispose_list(my_list);
+				break;
+			case 'i':
+				scanf("%d", &position);
+				scanf("%d", &info);
+				my_list = push_x(my_list, position, info);
+				break;
+			case 'R':
+				my_list = reverse(my_list);
+				break;
+		}
+	} while(i != 'q');
+	return 0;
+}
