@@ -9,40 +9,38 @@ f.tazi@jacobs-university.de
 #include <stdlib.h>
 
 int main(){
-    int n, m, p, **a, **b, **c, i, j, k;
+    int n, **a, **b, **c, i, j, k;
     int prod = 0;
 
-    //dimensions
+    //dimension
     scanf("%d", &n);
-    scanf("%d", &m);
-    scanf("%d", &p);
 
     //2D arrays
     a = (int**) malloc(sizeof(int*)*n);
     if(a == NULL){
     	exit(1);
     }
-    b = (int**) malloc(sizeof(int*)*m);
-    if(a == NULL){
+    b = (int**) malloc(sizeof(int*)*n);
+    if(b == NULL){
     	exit(1);
     }
     c = (int**) malloc(sizeof(int*)*n);
-    if(a == NULL){
+    if(c == NULL){
     	exit(1);
     }
 
     //array of integers
     for (i = 0; i < n; ++i)
     {
-    	a[i] = (int*) malloc(sizeof(int)*m);
+    	a[i] = (int*) malloc(sizeof(int)*n);
     	if(a[i] == NULL){
     		exit(1);
     	}
     }
 
-    for (i = 0; i < m; ++i)
+    for (i = 0; i < n; ++i)
     {
-    	b[i] = (int*) malloc(sizeof(int)*p);
+    	b[i] = (int*) malloc(sizeof(int)*n);
     	if(b[i] == NULL){
     		exit(1);
     	}
@@ -50,36 +48,29 @@ int main(){
 
     for (i = 0; i < n; ++i)
     {
-    	c[i] = (int*) malloc(sizeof(int)*p);
+    	c[i] = (int*) malloc(sizeof(int)*n);
     	if(c[i] == NULL){
     		exit(1);
     	}
     }
 
     //getting the input
-    for (i = 0; i < n; ++i)
-    {
-    	for (j = 0; j < m; ++j)
-    	{
+    for (i = 0; i < n; ++i) {
+    	for (j = 0; j < n; ++j) {
     		scanf("%d", &a[i][j]);
     	}
     }
 
-    for (i = 0; i < m; ++i)
-    {
-    	for (j = 0; j < p; ++j)
-    	{
+    for (i = 0; i < n; ++i) {
+    	for (j = 0; j < n; ++j) {
     		scanf("%d", &b[i][j]);
     	}
     }
 
     //product matrix
-    for (i = 0; i < n; i++)
-    {
-    	for (j = 0; j < p; j++)
-    	{
-    		for (k = 0; k < m; k++)
-    		{
+    for (i = 0; i < n; i++) {
+    	for (j = 0; j < n; j++) {
+    		for (k = 0; k < n; k++) {
     			prod = prod + (a[i][k]*b[k][j]);
     		}
     		c[i][j] = prod;
@@ -90,7 +81,7 @@ int main(){
     printf("Matrix A:\n");
     for (i = 0; i < n; ++i)
     {
-    	for (j = 0; j < m; ++j)
+    	for (j = 0; j < n; ++j)
     	{
     		printf("%d ", a[i][j]);
     	}
@@ -98,9 +89,9 @@ int main(){
     }
 
     printf("Matrix B:\n");
-    for (i = 0; i < m; ++i)
+    for (i = 0; i < n; ++i)
     {
-    	for (j = 0; j < p; ++j)
+    	for (j = 0; j < n; ++j)
     	{
     		printf("%d ", b[i][j]);
     	}
@@ -110,7 +101,7 @@ int main(){
     printf("The multiplication result AxB:\n");
     for (i = 0; i < n; ++i)
     {
-    	for (j = 0; j < p; ++j)
+    	for (j = 0; j < n; ++j)
     	{
     		printf("%d ", c[i][j]);
     	}
@@ -124,7 +115,7 @@ int main(){
     	free(c[i]);
     }
 
-    for (i = 0; i < m; ++i)
+    for (i = 0; i < n; ++i)
     {
     	free(b[i]); 
     }

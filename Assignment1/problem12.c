@@ -9,7 +9,6 @@ f.tazi@jacobs-university.de
 #define BIT(X) X&1
 int main(){
 	char value[100];
-
     unsigned char a;
 
     fgets(value, sizeof(value), stdin);

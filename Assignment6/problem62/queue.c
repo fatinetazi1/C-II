@@ -60,8 +60,7 @@ int dequeue(Item *pitem, Queue *pq)
 		printf("Queue Underflow");
 		exit(1);
 	}
-	Node *temp = (Node*)(malloc((1)*sizeof(Node)));
-	temp = pq->front;
+	Node *temp = pq->front;
 	pq->front = pq->front->next;
 	*pitem = temp->item;
 	free(temp);

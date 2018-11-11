@@ -29,6 +29,7 @@ int main(){
     int size = i + j;
 
     char* conc = (char*) malloc(sizeof(char)*size);
+    if(conc == NULL) {exit(EXIT_FAILURE);}
 
     int z = 0;
     for (z = 0; z < i; ++z)

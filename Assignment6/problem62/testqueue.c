@@ -6,7 +6,6 @@ f.tazi@jacobs-university.de
 */
 
 #include <stdio.h>
-
 #include "queue.h"
 
 int main() 
